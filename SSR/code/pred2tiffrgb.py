@@ -10,7 +10,7 @@ folder = '../TestResultsx4-full-pad-ep63'
 # folder = '../TestResultsx2-full-pad8ifLytro-ep60'
 datasets = ['EPFL', 'HCI_new', 'HCI_old', 'INRIA_Lytro', 'Stanford_Gantry'] #os.listdir(folder)
 savefolder = folder + '_tiffrgb'
-labelfolder = '/home/slfm/as13000/kimchange/LFSR_data/datasets'
+labelfolder = '../LFSSR_data/datasets'
 angRes = 5
 
 savevolume = 0

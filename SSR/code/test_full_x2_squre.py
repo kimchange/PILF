@@ -25,7 +25,7 @@ def parse_args():
     parser.add_argument("--channels", type=int, default=64, help="number of channels")
     parser.add_argument('--model_name', type=str, default='C42net')
 
-    parser.add_argument('--testset_dir', type=str, default='../data_for_training/TestData_2xSR_5x5/')
+    parser.add_argument('--testset_dir', type=str, default='../LFSSR_data/TestData_2xSR_5x5/')
 
 
     parser.add_argument("--crop_test_method",type=int, default=4, help="cropped test method( 1- whole image| 2- cropped mxn patches | 3- cropped 4 patches")
@@ -34,11 +34,8 @@ def parse_args():
 
     # parser.add_argument('--codefolder', type=str, default='/home/slfm/kimchange/LFSR/save/checkpoint_20230314-6C42conv-6C42trans-c64/code/')
     parser.add_argument('--codefolder', type=str, default='../save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/code/')
-
-
-    # parser.add_argument('--model_path', type=str, default='/home/slfm/kimchange/LFSR/save/checkpoint_20230309-4-convs-64-4-trans-6-noposition/C42net_4xSR_5x5_epoch_50.pth.tar')
-    # parser.add_argument('--model_path', type=str, default="/home/slfm/kimchange/LFSR/save/checkpoint_20230314-6C42conv-6C42trans-c64/C42net_4xSR_5x5_epoch_38.pth.tar")
-    parser.add_argument('--model_path', type=str, default="../save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/C42net_2xSR_5x5_epoch_60.pth.tar")
+    # parser.add_argument('--model_path', type=str, default="../save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/C42net_2xSR_5x5_epoch_60.pth.tar")
+    parser.add_argument('--model_path', type=str, default='../save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/C42net_2xSR_5x5_epoch_60_state_dict.pth.tar')
     # parser.add_argument('--save_path', type=str, default='./ValResults/')
     parser.add_argument('--save_path', type=str, default='../TestResultsx2-full-pad8ifLytro-ep60/')
     parser.add_argument('--tag', type=str, default='')
@@ -46,9 +43,6 @@ def parse_args():
     args = parser.parse_args()
 
     sys.path.append(args.codefolder)
-    
-    
-
     return args
 
 
@@ -68,7 +62,8 @@ def test(cfg, test_Names, test_loaders):
     if os.path.isfile(cfg.model_path):
         # model = torch.load(cfg.model_path, map_location={'cuda:1': cfg.device})
         # net.load_state_dict(model['state_dict'])
-        net.load_state_dict(torch.load('/home/slfm/as13000/kimchange/LFSR/save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/C42net_2xSR_5x5_epoch_60_state_dict.pth.tar'))
+        net.load_state_dict(torch.load(cfg.model_path))
+        # net.load_state_dict(torch.load('../save/checkpoint_20220326-c42conv-epixt-maxdisp2-layer6/C42net_2xSR_5x5_epoch_60_state_dict.pth.tar'))
     else:
         print("=> no model found at '{}'".format(cfg.model_path))
         pass
